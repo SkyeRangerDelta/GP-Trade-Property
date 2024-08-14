@@ -1,0 +1,10 @@
+name: GP-Trade-Property
+version: '${version}'
+main: net.pldyn.gptradeproperty.gpTradeProperty
+api-version: '1.21'
+prefix: [GP-TradeProperty]
+authors: [SkyeRangerDelta]
+description: 'A plugin that allows you to trade GriefPrevention claims with other players.'
+website: 'https://pldyn.net/
+depend:
+  - GriefPrevention
