@@ -40,7 +40,7 @@ public class ConfigHandler {
             .getDataFolder(), "config.yml"
     );
 
-    if ( ! coreConfigFile.exists() ) {
+    if ( !coreConfigFile.exists() ) {
       try {
         coreConfigFile.createNewFile();
       } catch ( IOException e ) {
