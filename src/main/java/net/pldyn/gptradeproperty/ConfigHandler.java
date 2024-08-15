@@ -36,6 +36,17 @@ public class ConfigHandler extends AnnotationConfig {
 
 
 
+  @ConfigField( name = "GPTP.Rules.DisplayItemSuffix", comment = "Whether signs should show a item suffix." )
+  public boolean cfgShowCurrencySuffix = true;
+
+  @ConfigField( name = "GPTP.Rules.Suffix", comment = "The suffix to use if the above is true." )
+  public String cfgCurrencySymbol = "d";
+
+  @ConfigField( name = "GPTP.Rules.AcceptedTradeItems", comment = "The accepted items for trade costs." )
+  public List<String> cfgAcceptedCostItems = Arrays.asList( "minecraft:diamond" );
+
+
+
   @ConfigField( name = "GPTP.Rules.TransferClaimBlocks", comment = "Whether claims blocks should be transferred to the new owner or not." )
   public boolean cfgTransferClaimBlocks = true;
 
