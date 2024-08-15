@@ -14,6 +14,10 @@ public final class GPTradeProperty extends JavaPlugin {
 
   public static GPTradeProperty instance = null;
 
+  public ConfigHandler configHandler;
+
+  public static final String pluginDirPath = "plugins/GP-TradeProperty/";
+
   @Override
   public void onEnable() {
     // Plugin startup logic
@@ -25,7 +29,6 @@ public final class GPTradeProperty extends JavaPlugin {
       getServer().getPluginManager().disablePlugin(this);
     }
 
-    ConfigHandler.confInit();
     GPTradeProperty.instance = this;
 
     doInit();
@@ -41,6 +44,11 @@ public final class GPTradeProperty extends JavaPlugin {
    * Initialize the plugin
    */
   private void doInit() {
+    // Config
+    configHandler = new ConfigHandler();
+    configHandler.loadConfig();
+    configHandler.saveConfig();
+
     // Register events
     new TPListener().registerEvents();
 
