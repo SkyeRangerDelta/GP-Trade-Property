@@ -1,6 +1,6 @@
 name: GP-TradeProperty
 version: '${version}'
-main: net.pldyn.gptradeproperty.gpTradeProperty
+main: net.pldyn.gptradeproperty.GPTradeProperty
 api-version: '1.21'
 prefix: [GP-TradeProperty]
 authors: [SkyeRangerDelta]
