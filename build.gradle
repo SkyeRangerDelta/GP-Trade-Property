@@ -23,6 +23,7 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     compileOnly('com.github.GriefPrevention:GriefPrevention:16.18.4')
+    compileOnly('com.github.EtienneDx:AnnotationConfig:1.1')
 }
 
 def targetJavaVersion = 21
