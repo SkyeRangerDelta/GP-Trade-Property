@@ -1,6 +1,9 @@
 package net.pldyn.gptradeproperty.TradeHandling;
 
 import me.ryanhamshire.GriefPrevention.Claim;
+import net.pldyn.gptradeproperty.GPTradeProperty;
+import net.pldyn.gptradeproperty.MessageHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
@@ -24,6 +27,11 @@ public class ClaimSell extends TradeTransaction {
 
     if ( sign.getBlock().getState() instanceof Sign ) {
       Sign s = ( Sign ) sign.getBlock().getState();
+
+      //TODO: Refactor to account for multiple sides
+      s.setLine( 0, MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader ) );
+      s.setLine( 1, MessageHandler.getMessage( GPTradeProperty.instance.configHandler.cfgDisplayConfirmed ) );
+      s.setLine( 2, owner != null ? Utils.getSignString( Bukkit.getOfflinePlayer( owner ).getName) : "SERVER" );
     }
     else {
 
