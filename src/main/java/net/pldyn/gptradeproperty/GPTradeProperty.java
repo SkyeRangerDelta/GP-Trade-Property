@@ -1,5 +1,6 @@
 package net.pldyn.gptradeproperty;
 
+import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -15,6 +16,7 @@ public final class GPTradeProperty extends JavaPlugin {
   public static GPTradeProperty instance = null;
 
   public ConfigHandler configHandler;
+  public MessageHandler messageHandler;
 
   public static final String pluginDirPath = "plugins/GP-TradeProperty/";
 
@@ -48,6 +50,13 @@ public final class GPTradeProperty extends JavaPlugin {
     configHandler = new ConfigHandler();
     configHandler.loadConfig();
     configHandler.saveConfig();
+    Log.info( "Config loaded." );
+
+    // Messages
+    messageHandler = new MessageHandler();
+    messageHandler.loadConfig();
+    messageHandler.saveConfig();
+    Log.info( "Custom messages loaded." );
 
     // Register events
     new TPListener().registerEvents();
