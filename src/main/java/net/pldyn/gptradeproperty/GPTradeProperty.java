@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public final class GPTradeProperty extends JavaPlugin {
 
-  private static final Logger Log = Logger.getLogger("GP-TradeProperty");
+  public Logger Log = Logger.getLogger("GP-TradeProperty");
 
   public static GPTradeProperty instance = null;
 
@@ -57,6 +57,9 @@ public final class GPTradeProperty extends JavaPlugin {
     messageHandler.loadConfig();
     messageHandler.saveConfig();
     Log.info( "Custom messages loaded." );
+
+    // Accounts
+    AccountsConfigHandler.initAccountsConfig();
 
     // Register events
     new TPListener().registerEvents();
