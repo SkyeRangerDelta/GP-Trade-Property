@@ -14,9 +14,12 @@ import me.ryanhamshire.GriefPrevention.PlayerData;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import static net.pldyn.gptradeproperty.TradeUtilities.depositItems;
+import static net.pldyn.gptradeproperty.TradeUtilities.withdrawCost;
+
 public class Utilities
 {
-  public static boolean makePayment(UUID receiver, UUID giver, double amount, boolean msgSeller, boolean msgBuyer)
+  public static boolean makePayment(UUID receiver, UUID giver, int amount, boolean msgSeller, boolean msgBuyer)
   {
     // seller might be null if it is the server
     OfflinePlayer s = receiver != null ? Bukkit.getOfflinePlayer(receiver) : null, b = Bukkit.getOfflinePlayer(giver);
@@ -24,28 +27,29 @@ public class Utilities
     {
       if( b.isOnline() && msgBuyer) // If the buyer is online and the message to the buyer is true
       {
-        Messages.sendMessage( b.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoMoneySelf );
+        MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoMoneySelf );
       }
       if( s != null && s.isOnline() && msgSeller ) // If the seller is online and the message to the seller is true
       {
-        Messages.sendMessage( s.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoMoneyOther, b.getName() );
+        MessageHandler.sendMessage( s.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoMoneyOther, b.getName() );
       }
 
       return false;
     }
 
-    EconomyResponse resp = GPTradeProperty.econ.withdrawPlayer( b, amount ); // Withdraw the amount from the buyer
+    // Withdraw the amount from the buyer
+    boolean success = withdrawCost( b, amount );
 
-    if( !resp.transactionSuccess() ) // If the transaction was not successful
+    if( !success ) // If the transaction was not successful
     {
       if( b.isOnline() && msgBuyer ) // If the buyer is online and the message to the buyer is true
       {
-        Messages.sendMessage( b.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoWithdrawSelf );
+        MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoWithdrawSelf );
       }
 
       if( s != null && s.isOnline() && msgSeller ) // If the seller is online and the message to the seller is true
       {
-        Messages.sendMessage( b.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoWithdrawOther );
+        MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoWithdrawOther );
       }
 
       return false;
@@ -53,20 +57,20 @@ public class Utilities
 
     if( s != null ) // If the seller is not null
     {
-      resp = GPTradeProperty.econ.depositPlayer( s, amount ); // Deposit the amount to the seller
-      if( !resp.transactionSuccess() ) // If the transaction was not successful
+      boolean deposit = depositItems( s, amount ); // Deposit the amount to the seller
+      if( !deposit ) // If the transaction was not successful
       {
         if( b.isOnline() && msgBuyer ) // If the buyer is online and the message to the buyer is true
         {
-          Messages.sendMessage( b.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoDepositOther, s.getName() );
+          MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoDepositOther, s.getName() );
         }
 
         if( s != null && s.isOnline() && msgSeller ) // If the seller is online and the message to the seller is true
         {
-          Messages.sendMessage( b.getPlayer(), GPTradeProperty.instance.messages.msgErrorNoDepositSelf, b.getName() );
+          MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoDepositSelf, b.getName() );
         }
 
-        GPTradeProperty.econ.depositPlayer( b, amount );
+        AccountsConfigHandler.addAccount( giver, amount ); // Add the amount to the buyer's account for access later
 
         return false;
       }
@@ -104,7 +108,7 @@ public class Utilities
     // if transfert is true, the seller will lose the blocks he had
     // and the buyer will get them
     // (that means the buyer will keep the same amount of remaining blocks after the transaction)
-    if(claim.parent == null && GPTradeProperty.instance.config.cfgTransferClaimBlocks)
+    if(claim.parent == null && GPTradeProperty.instance.configHandler.cfgTransferClaimBlocks)
     {
       PlayerData buyerData = GriefPrevention.instance.dataStore.getPlayerData(buyer);
       if(seller != null)
