@@ -3,6 +3,7 @@ package net.pldyn.gptradeproperty.TradeHandling;
 import me.ryanhamshire.GriefPrevention.Claim;
 import net.pldyn.gptradeproperty.GPTradeProperty;
 import net.pldyn.gptradeproperty.MessageHandler;
+import net.pldyn.gptradeproperty.Utilities;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -11,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class ClaimSell extends TradeTransaction {
@@ -31,10 +33,18 @@ public class ClaimSell extends TradeTransaction {
       //TODO: Refactor to account for multiple sides
       s.setLine( 0, MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader ) );
       s.setLine( 1, MessageHandler.getMessage( GPTradeProperty.instance.configHandler.cfgDisplayConfirmed ) );
-      s.setLine( 2, owner != null ? Utils.getSignString( Bukkit.getOfflinePlayer( owner ).getName) : "SERVER" );
+      s.setLine( 2, owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER" );
+
+      if ( GPTradeProperty.instance.configHandler.cfgUseCurrencySymbol ) {
+        s.setLine( 3, GPTradeProperty.instance.configHandler.cfgCurrencySymbol + " " + (int) Math.round( price ) );
+      }
+      else {
+        s.setLine( 3, "" );
+      }
+
     }
     else {
-
+      GPTradeProperty.TradeData.cancelTrade( this );
     }
 
     return false;

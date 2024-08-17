@@ -27,12 +27,30 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Info.Claim.Info.Owner", comment = "0: owner name")
   public String msgClaimInfoOwner = "$bThe current owner is $a{0}";
 
-  @ConfigField( name = "RealEstate.Info.Claim.Created.Sell", comment = "0: claim prefix, 1: claim type, 2: formatted price")
+  @ConfigField( name = "GPTP.Info.Claim.Created.Sell", comment = "0: claim prefix, 1: claim type, 2: formatted price")
   public String msgClaimCreatedSell = "$bYou have successfully created {0} {1} sale for $a{2}";
 
-  @ConfigField( name = "RealEstate.Info.Claim.Created.SellBroadcast", comment = "0: player name, 1: claim prefix, 2: claim type, 3: formatted price")
+  @ConfigField( name = "GPTP.Info.Claim.Created.SellBroadcast", comment = "0: player name, 1: claim prefix, 2: claim type, 3: formatted price")
   public String msgClaimCreatedSellBroadcast = "$a{0} $bhas created {1} {2} sale for $a{3}";
 
+
+  @ConfigField( name = "GPTP.Errors.Trade.NoMoneySelf" )
+  public String msgErrorNoMoneySelf = "$cYou do not have enough to buy this property.";
+
+  @ConfigField( name = "GPTP.Errors.Trade.NoMoneyOther" )
+  public String msgErrorNoMoneyOther = "$c{0} does not have enough to buy this property.";
+
+  @ConfigField( name = "GPTP.Errors.NoWithdrawSelf" )
+  public String msgErrorNoWithdrawSelf = "$cCould not withdraw the money!";
+
+  @ConfigField( name = "GPTP.Errors.NoWithdrawOther", comment = "0: Other player" )
+  public String msgErrorNoWithdrawOther = "$cCould not withdraw the money from {0}!";
+
+  @ConfigField( name = "GPTP.Errors.NoDepositSelf", comment = "0: Other player" )
+  public String msgErrorNoDepositSelf = "$cCould not deposit the money to you, refunding {0}!";
+
+  @ConfigField( name = "GPTP.Errors.NoDepositOther", comment = "0: Other player" )
+  public String msgErrorNoDepositOther = "$cCould not deposit the money to {0}, refunding you!";
 
 
   public MessageHandler() {
