@@ -42,6 +42,9 @@ public class ConfigHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Rules.Suffix", comment = "The suffix to use if the above is true." )
   public String cfgCurrencySymbol = "d";
 
+  @ConfigField(name="RealEstate.Rules.UseCurrencySymbol", comment = "Allow the use of currency symbols.")
+  public boolean cfgUseCurrencySymbol = true;
+
   @ConfigField( name = "GPTP.Rules.AcceptedTradeItems", comment = "The accepted items for trade costs." )
   public List<String> cfgAcceptedCostItems = Arrays.asList( "minecraft:diamond" );
 
