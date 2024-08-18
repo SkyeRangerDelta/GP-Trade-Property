@@ -1,6 +1,9 @@
 package net.pldyn.gptradeproperty;
 
+import net.pldyn.gptradeproperty.TradeHandling.ClaimSell;
+import net.pldyn.gptradeproperty.TradeHandling.TradeData;
 import org.bukkit.command.defaults.BukkitCommand;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,6 +20,8 @@ public final class GPTradeProperty extends JavaPlugin {
 
   public ConfigHandler configHandler;
   public MessageHandler messageHandler;
+
+  public static TradeData tradeData = null;
 
   public static final String pluginDirPath = "plugins/GP-TradeProperty/";
 
@@ -57,6 +62,12 @@ public final class GPTradeProperty extends JavaPlugin {
     messageHandler.loadConfig();
     messageHandler.saveConfig();
     Log.info( "Custom messages loaded." );
+
+    // Classes
+    ConfigurationSerialization.registerClass( ClaimSell.class );
+
+    // Trade data
+    GPTradeProperty.tradeData = new TradeData();
 
     // Accounts
     AccountsConfigHandler.initAccountsConfig();

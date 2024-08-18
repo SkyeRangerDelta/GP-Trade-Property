@@ -44,7 +44,7 @@ public class ClaimSell extends TradeTransaction {
 
     }
     else {
-      GPTradeProperty.TradeData.cancelTrade( this );
+      GPTradeProperty.tradeData.cancelTrade( this );
     }
 
     return false;
