@@ -67,6 +67,18 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.NoDepositOther", comment = "0: Other player" )
   public String msgErrorNoDepositOther = "$cCould not deposit the money to {0}, refunding you!";
 
+  @ConfigField( name = "GPTP.Errors.Sign.OngoingTransaction" )
+  public String msgErrorSignOngoingTrade = "$cThis claim already has an ongoing transaction!";
+
+  @ConfigField( name = "GPTP.Errors.Sign.ParentOngoingTransaction" )
+  public String msgErrorSignOngoingTradeParent = "$cThis claim's parent already has an ongoing transaction!";
+
+  @ConfigField( name = "GPTP.Errors.Sign.SubclaimOngoingTransaction" )
+  public String msgErrorSignOngoingTradeSubclaim = "$cThis claim has subclaims with ongoing transactions!";
+
+  @ConfigField( name = "GPTP.Errors.SellDisabled" )
+  public String msgErrorSellDisabled = "$cSelling claims is disabled on this server!";
+
 
   public MessageHandler() {
     this.pdf = GPTradeProperty.instance.getDescription();
