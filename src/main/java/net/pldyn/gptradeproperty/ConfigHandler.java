@@ -30,6 +30,11 @@ public class ConfigHandler extends AnnotationConfig {
 
 
 
+  @ConfigField( name = "GPTP.Settings.PricePerBlock", comment = "The price per block of a claim." )
+  public int cfgPricePerBlock = 5;
+
+
+
   @ConfigField( name = "GPTP.Keywords.Sell", comment = "All possible sell sign headers" )
   public List<String> cfgSellSigns = Arrays.asList( "[sell]", "[sell claim]", "[sc]", "[sp]", "[sell property]", "[tradeproperty]" );
 

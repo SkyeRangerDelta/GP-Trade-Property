@@ -2,8 +2,8 @@ package net.pldyn.gptradeproperty;
 
 import net.pldyn.gptradeproperty.TradeHandling.ClaimSell;
 import net.pldyn.gptradeproperty.TradeHandling.TradeData;
-import org.bukkit.command.defaults.BukkitCommand;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 

@@ -79,6 +79,24 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.SellDisabled" )
   public String msgErrorSellDisabled = "$cSelling claims is disabled on this server!";
 
+  @ConfigField( name = "GPTP.Errors.InvalidNumber", comment = "Message for wrong price data. 0: the price" )
+  public String msgErrorInvalidNumber = "$c{0} is not a valid number!";
+
+  @ConfigField( name = "GPTP.Errors.NegativeNumber", comment = "0: number" )
+  public String msgErrorNegativeNumber = "$c{0} is a negative number!";
+
+  @ConfigField( name = "GPTP.Errors.NegativePrice", comment = "0: price" )
+  public String msgErrorNegativePrice = "$cThe price must be greater than zero!";
+
+  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: number" )
+  public String msgErrorNonIntegerNumber = "$c{0} is not a whole number!";
+
+  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: claim type" )
+  public String msgErrorSellAdminClaim = "$cYou don't have permission to sell this admin {0}";
+
+  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: claim type" )
+  public String msgErrorSellNotOwner = "$cYou can only sell your own {0}";
+
 
   public MessageHandler() {
     this.pdf = GPTradeProperty.instance.getDescription();
