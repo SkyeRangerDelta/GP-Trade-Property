@@ -83,7 +83,7 @@ public class TradeData {
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
 
     if ( player != null ) {
-      MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgInfoClaimCreatedSell );
+      MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgClaimCreatedSell );
     }
   }
 }

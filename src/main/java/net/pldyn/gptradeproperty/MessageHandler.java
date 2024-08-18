@@ -15,6 +15,18 @@ import java.util.regex.Matcher;
 public class MessageHandler extends AnnotationConfig {
   public PluginDescriptionFile pdf;
 
+  @ConfigField( name = "GPTP.Keywords.Claim" )
+  public String keywordClaim = "claim";
+
+  @ConfigField( name = "GPTP.Keywords.AdminClaimPrefix" )
+  public String keywordAdminClaimPrefix = "an admin";
+
+  @ConfigField( name = "GPTP.Keywords.ClaimPrefix" )
+  public String keywordClaimPrefix = "a";
+
+  @ConfigField( name = "GPTP.Keywords.Subclaim" )
+  public String keywordSubclaim = "subclaim";
+
   @ConfigField( name = "GPTP.Info.Claim.Info.Sell.Header", comment = "The header for the claim info sell message" )
   public String msgClaimInfoSellHeader = "$a-----= $5[$9Property Sale Info$5]$a =-----";
 
