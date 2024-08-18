@@ -141,6 +141,8 @@ public class ClaimSell extends TradeTransaction {
         MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgErrorUnexpected );
         return;
       }
+
+      GPTradeProperty.tradeData.cancelTrade( this );
     }
   }
 
