@@ -16,10 +16,10 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
 
   public long claimId;
   public UUID owner = null;
-  public double price;
+  public int price;
   public Location sign = null;
 
-  public TradeTransaction( Claim claim, Player pc, double price, Location sign ) {
+  public TradeTransaction( Claim claim, Player pc, int price, Location sign ) {
     this.claimId = claim.getID();
     this.owner = pc != null ? pc.getUniqueId() : null;
     this.price = price;
@@ -33,7 +33,7 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
       this.owner = UUID.fromString( String.valueOf( map.get("owner") ) );
     }
 
-    this.price = Double.parseDouble( String.valueOf( map.get("price") ) );
+    this.price = Integer.parseInt( String.valueOf( map.get("price") ) );
 
     if ( map.get( "signLocation" ) != null ) {
       this.sign = (Location) map.get("signLocation");
