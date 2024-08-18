@@ -15,6 +15,9 @@ import java.util.regex.Matcher;
 public class MessageHandler extends AnnotationConfig {
   public PluginDescriptionFile pdf;
 
+  @ConfigField( name = "GPTP.Keywords.TheServer" )
+  public String keywordTheServer = "The server";
+
   @ConfigField( name = "GPTP.Keywords.Claim" )
   public String keywordClaim = "claim";
 
@@ -89,30 +92,30 @@ public class MessageHandler extends AnnotationConfig {
   }
 
   //sends a color-coded message to a player
-  public static void sendMessage( CommandSender player, String msgTemplate, String... args)  {
-    sendMessage(player, msgTemplate, 0, args);
+  public static void sendMessage( CommandSender player, String msgTemplate, String... args )  {
+    sendMessage( player, msgTemplate, 0, args );
   }
 
   //sends a color-coded message to a player
   public static void sendMessage( CommandSender player, String msgTemplate, long delayInTicks, String... args ) {
-    String message = getMessage(msgTemplate, args);
-    sendMessage(player, message, delayInTicks);
+    String message = getMessage( msgTemplate, args );
+    sendMessage( player, message, delayInTicks );
   }
 
   //sends a color-coded message to a player
   public static void sendMessage( CommandSender player, String message ) {
-    sendMessage(player, getMessage(message), 0);
+    sendMessage(player, getMessage( message ), 0);
   }
 
   //sends a color-coded message to a player
   public static void sendMessage( CommandSender player, String message, Boolean fixColors ) {
-    sendMessage(player, fixColors ? getMessage(message) : message, 0);
+    sendMessage(player, fixColors ? getMessage( message ) : message, 0);
   }
 
   public static void sendMessage( CommandSender player, String message, long delayInTicks ) {
     PlayerMessaging task = new PlayerMessaging(player, message);
 
-    if (delayInTicks > 0) {
+    if ( delayInTicks > 0 ) {
       GPTradeProperty.instance.getServer().getScheduler().runTaskLater(GPTradeProperty.instance, task, delayInTicks);
     } else {
       task.run();

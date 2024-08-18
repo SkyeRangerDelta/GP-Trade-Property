@@ -1,9 +1,12 @@
 package net.pldyn.gptradeproperty.TradeHandling;
 
 import me.ryanhamshire.GriefPrevention.Claim;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.pldyn.gptradeproperty.GPTradeProperty;
 import net.pldyn.gptradeproperty.MessageHandler;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -83,7 +86,21 @@ public class TradeData {
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
 
     if ( player != null ) {
-      MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgClaimCreatedSell );
+      MessageHandler.sendMessage( ( CommandSender ) player, GPTradeProperty.instance.messageHandler.msgClaimCreatedSell,
+          claimPrefix, claimTypeDisplay, "" + price );
+    }
+
+    if ( GPTradeProperty.instance.configHandler.cfgBroadcastSell ) {
+      for ( Player p : Bukkit.getServer().getOnlinePlayers() ) {
+        if ( p != player ) {
+          MessageHandler.sendMessage( ( CommandSender ) p, GPTradeProperty.instance.messageHandler.msgClaimCreatedSellBroadcast,
+            player == null ?
+              GPTradeProperty.instance.messageHandler.keywordTheServer :
+              PlainTextComponentSerializer.plainText().serialize( player.displayName() ),
+            claimPrefix,
+            claimTypeDisplay, "" + price );
+        }
+      }
     }
   }
 }
