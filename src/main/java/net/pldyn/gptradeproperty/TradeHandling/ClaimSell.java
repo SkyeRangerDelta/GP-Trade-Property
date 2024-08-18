@@ -148,16 +148,55 @@ public class ClaimSell extends TradeTransaction {
 
   @Override
   public void preview( Player player ) {
+    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( sign, false, null );
 
+    String cType = claim.parent == null ? "claim" : "subclaim";
+    String claimDisplay = claim.parent == null ?
+        GPTradeProperty.instance.messageHandler.keywordClaim :
+        GPTradeProperty.instance.messageHandler.keywordSubclaim;
+    String msg = MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellHeader + "\n" );
+
+    msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellGeneral,
+        claimDisplay,
+        "" + price );
+
+    if ( cType.equalsIgnoreCase( "claim" ) ) {
+      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoOwner,
+          claim.getOwnerName()) + "\n";
+    }
+    else {
+      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoMainOwner,
+          claim.parent.getOwnerName()) + "\n";
+
+      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgInfoClaimNote ) + "\n";
+    }
+
+    MessageHandler.sendMessage( player, msg );
   }
 
   @Override
   public void setOwner( UUID owner ) {
-
+    this.owner = owner;
   }
 
   @Override
   public void messageData( CommandSender cs ) {
+    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( sign, false, null );
 
+    if ( claim == null ) {
+      tryCancelTrade( null, true );
+      return;
+    }
+
+    Location claimLoc = claim.getLesserBoundaryCorner();
+    String location = "[" + claimLoc.getWorld().getName() + ", " +
+        "X: " + claimLoc.getBlockX() + ", " +
+        "Y: " + claimLoc.getBlockY() + ", " +
+        "Z: " + claimLoc.getBlockZ() + "]";
+
+    MessageHandler.sendMessage( cs, GPTradeProperty.instance.messageHandler.msgClaimInfoSellSingleLine,
+        claim.getArea(),
+        location,
+        "" + price );
   }
 }

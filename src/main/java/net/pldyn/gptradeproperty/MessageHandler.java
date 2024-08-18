@@ -54,6 +54,12 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Info.ClaimOwnerSold", comment = "0: buyer name, 1: claim type, 2: price, 3: location" )
   public String msgClaimOwnerSold = "$a{0}$b has purchased a $a{1}$b at $a{3}$b for $a{2}";
 
+  @ConfigField( name = "GPTP.Info.Claim.Info.MainOwner", comment = "0: owner name" )
+  public String msgClaimInfoMainOwner = "$bThe main claim's owner is $a{0}";
+
+  @ConfigField( name = "GPTP.Info.Claim.Info.SubclaimNote", comment = "0: owner name" )
+  public String msgInfoClaimNote = "$bYou will only gain access to this subclaim.";
+
 
 
   @ConfigField( name = "GPTP.Errors.Trade.NoMoneySelf" )
@@ -88,9 +94,6 @@ public class MessageHandler extends AnnotationConfig {
 
   @ConfigField( name = "GPTP.Errors.InvalidNumber", comment = "Message for wrong price data. 0: the price" )
   public String msgErrorInvalidNumber = "$c{0} is not a valid number!";
-
-  @ConfigField( name = "GPTP.Errors.NegativeNumber", comment = "0: number" )
-  public String msgErrorNegativeNumber = "$c{0} is a negative number!";
 
   @ConfigField( name = "GPTP.Errors.NegativePrice", comment = "0: price" )
   public String msgErrorNegativePrice = "$cThe price must be greater than zero!";
