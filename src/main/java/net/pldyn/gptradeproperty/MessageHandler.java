@@ -88,14 +88,20 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.NegativePrice", comment = "0: price" )
   public String msgErrorNegativePrice = "$cThe price must be greater than zero!";
 
-  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: number" )
-  public String msgErrorNonIntegerNumber = "$c{0} is not a whole number!";
-
-  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: claim type" )
+  @ConfigField( name = "GPTP.Errors.SellAdminClaimError", comment = "0: claim type" )
   public String msgErrorSellAdminClaim = "$cYou don't have permission to sell this admin {0}";
 
-  @ConfigField( name = "GPTP.Errors.NonIntegerNumber", comment = "0: claim type" )
+  @ConfigField( name = "GPTP.Errors.NotOwnerError", comment = "0: claim type" )
   public String msgErrorSellNotOwner = "$cYou can only sell your own {0}";
+
+  @ConfigField( name = "GPTP.Errors.NoTransaction" )
+  public String msgErrorNoTrade = "$cThis claim is no longer on the market.";
+
+  @ConfigField( name = "GPTP.Errors.SignNotAuthor" )
+  public String msgErrorSignNotAuthor = "$cYou are not the author of this sign!";
+
+  @ConfigField( name = "GPTP.Errors.SignNotAdmin" )
+  public String msgErrorSignNotAdmin = "$cOnly admins can destroy this sign!";
 
 
   public MessageHandler() {

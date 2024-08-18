@@ -3,13 +3,18 @@ package net.pldyn.gptradeproperty;
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.pldyn.gptradeproperty.TradeHandling.Trade;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
@@ -166,7 +171,38 @@ public class TPListener implements Listener {
    */
   @EventHandler
   public void onPlayerInteract( PlayerInteractEvent ev ) {
+    if ( ev.getAction().equals( Action.RIGHT_CLICK_BLOCK ) && ev.getHand().equals( EquipmentSlot.HAND ) &&
+      ev.getClickedBlock().getState() instanceof Sign ) {
 
+      Sign s = ( Sign ) ev.getClickedBlock().getState();
+      // Check if this is a trade sign
+      List<String> lines = new ArrayList<>();
+      for ( int i = 0; i < 4; i++ ) {
+        lines.add( PlainTextComponentSerializer.plainText().serialize( Objects.requireNonNull( s.line( i ) ) ) );
+      }
+
+      if ( ChatColor.stripColor( lines.getFirst() ).equalsIgnoreCase(
+          ChatColor.stripColor( MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false ) )
+      ) ) {
+        Player pc = ev.getPlayer();
+        Claim claim = GriefPrevention.instance.dataStore.getClaimAt( ev.getClickedBlock().getLocation(), false, null );
+
+        if ( !GPTradeProperty.tradeData.anyTransaction( claim ) ) {
+          MessageHandler.sendMessage( pc, GPTradeProperty.instance.messageHandler.msgErrorNoTrade );
+          ev.getClickedBlock().breakNaturally();
+          ev.setCancelled( true );
+          return;
+        }
+
+        Trade tr = GPTradeProperty.tradeData.getTransaction( claim );
+        if ( pc.isSneaking() ) {
+          tr.preview( pc );
+        }
+        else {
+          tr.interact( pc );
+        }
+      }
+    }
   }
 
   /**
@@ -174,6 +210,29 @@ public class TPListener implements Listener {
    */
   @EventHandler
   public void onBlockBreak( BlockBreakEvent ev ) {
+    if ( ev.getBlock().getState() instanceof Sign ) {
+      Claim claim = GriefPrevention.instance.dataStore.getClaimAt( ev.getBlock().getLocation(), false, null );
 
+      if ( claim != null ) {
+        Trade tr = GPTradeProperty.tradeData.getTransaction( claim );
+
+        if ( tr != null && ev.getBlock().equals( tr.getHolder() ) ) {
+          if ( tr.getOwner() != null && ! ev.getPlayer().getUniqueId().equals( tr.getOwner() ) ) {
+            MessageHandler.sendMessage( ev.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorSignNotAuthor );
+            ev.setCancelled( true );
+            return;
+          }
+          else if ( tr.getOwner() == null  && !ev.getPlayer().isOp()) {
+            MessageHandler.sendMessage( ev.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorSignNotAdmin );
+            ev.setCancelled( true );
+            return;
+          }
+
+          if ( !tr.tryCancelTrade( ev.getPlayer() ) ) {
+            ev.setCancelled( true );
+          }
+        }
+      }
+    }
   }
 }
