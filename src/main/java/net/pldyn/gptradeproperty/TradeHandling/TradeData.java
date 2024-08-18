@@ -1,6 +1,7 @@
 package net.pldyn.gptradeproperty.TradeHandling;
 
 import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.pldyn.gptradeproperty.GPTradeProperty;
 import net.pldyn.gptradeproperty.MessageHandler;
@@ -102,5 +103,12 @@ public class TradeData {
         }
       }
     }
+  }
+
+  public Trade getTrade( Player player ) {
+    if ( player == null ) return null;
+
+    Claim c = GriefPrevention.instance.dataStore.getClaimAt( player.getLocation(), true, null );
+    return getTransaction( c );
   }
 }
