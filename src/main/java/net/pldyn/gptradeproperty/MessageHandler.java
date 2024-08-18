@@ -48,6 +48,13 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Info.Claim.Created.SellBroadcast", comment = "0: player name, 1: claim prefix, 2: claim type, 3: formatted price")
   public String msgClaimCreatedSellBroadcast = "$a{0} $bhas created {1} {2} sale for $a{3}";
 
+  @ConfigField( name = "GPTP.Info.ClaimBuyerSold", comment = "0: claim type, 1: price" )
+  public String msgClaimBuyerSold = "$bYou have purchased the {0} for $a{1}";
+
+  @ConfigField( name = "GPTP.Info.ClaimOwnerSold", comment = "0: buyer name, 1: claim type, 2: price, 3: location" )
+  public String msgClaimOwnerSold = "$a{0}$b has purchased a $a{1}$b at $a{3}$b for $a{2}";
+
+
 
   @ConfigField( name = "GPTP.Errors.Trade.NoMoneySelf" )
   public String msgErrorNoMoneySelf = "$cYou do not have enough to buy this property.";
@@ -102,6 +109,21 @@ public class MessageHandler extends AnnotationConfig {
 
   @ConfigField( name = "GPTP.Errors.SignNotAdmin" )
   public String msgErrorSignNotAdmin = "$cOnly admins can destroy this sign!";
+
+  @ConfigField( name = "GPTP.Errors.ClaimAlreadyOwner", comment = "0: claim type" )
+  public String msgErrorClaimAlreadyOwner = "$cYou are already the owner of this ${0}";
+
+  @ConfigField( name = "GPTP.Errors.ClaimNotSoldByOwner", comment = "0: claim type" )
+  public String msgErrorClaimNotSoldByOwner = "$cThis ${0} is not sold by it's owner!";
+
+  @ConfigField( name = "GPTP.Errors.ClaimNotExists" )
+  public String msgErrorClaimNonExistent = "$cThis claim doesn't exist!";
+
+  @ConfigField( name = "GPTP.Errors.NoClaimBlocks", comment = "0: claim area, 1: claim blocks remaining, 2: missing blocks" )
+  public String msgErrorNoClaimBlocks = "$cYou need $a{2}$c more claim blocks to buy this area! (Requires $a{0}$c blocks and you have $a{1}$c)";
+
+  @ConfigField( name = "GPTP.Errors.UnexpectedError" )
+  public String msgErrorUnexpected = "$cSomething unexpected has occurred. Please contact an admin.";
 
 
   public MessageHandler() {
