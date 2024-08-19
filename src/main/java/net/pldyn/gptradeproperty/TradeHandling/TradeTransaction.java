@@ -17,13 +17,13 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
   public long claimId;
   public UUID owner = null;
   public int price;
-  public Location sign = null;
+  public Location signLoc = null;
 
   public TradeTransaction( Claim claim, Player pc, int price, Location sign ) {
     this.claimId = claim.getID();
     this.owner = pc != null ? pc.getUniqueId() : null;
     this.price = price;
-    this.sign = sign;
+    this.signLoc = sign;
   }
 
   public TradeTransaction( Map<String, Object> map ) {
@@ -36,7 +36,7 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
     this.price = Integer.parseInt( String.valueOf( map.get("price") ) );
 
     if ( map.get( "signLocation" ) != null ) {
-      this.sign = (Location) map.get("signLocation");
+      this.signLoc = (Location) map.get("signLocation");
     }
   }
 
@@ -56,8 +56,8 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
 
     map.put( "price", this.price );
 
-    if ( sign != null ) {
-      map.put( "signLocation", sign );
+    if ( signLoc != null ) {
+      map.put( "signLocation", signLoc );
     }
 
     return map;
@@ -65,7 +65,7 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
 
   @Override
   public Block getHolder() {
-    return sign.getBlock().getState() instanceof Sign ? sign.getBlock() : null;
+    return signLoc.getBlock().getState() instanceof Sign ? signLoc.getBlock() : null;
   }
 
   @Override

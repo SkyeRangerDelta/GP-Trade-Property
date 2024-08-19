@@ -20,8 +20,8 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class ClaimSell extends TradeTransaction {
-  public ClaimSell( Claim claim, Player pc, int price, Location sign ) {
-    super( claim, pc, price, sign );
+  public ClaimSell( Claim claim, Player pc, int price, Location signLoc ) {
+    super( claim, pc, price, signLoc );
   }
 
   public ClaimSell( Map<String, Object> map ) {
@@ -32,9 +32,9 @@ public class ClaimSell extends TradeTransaction {
   public boolean update() {
 
     GPTradeProperty.instance.Log.info( "Updating sign for claim " + claimId );
-    GPTradeProperty.instance.Log.info( "PC: " + owner + " Price: " + price + " Sign: " + sign );
+    GPTradeProperty.instance.Log.info( "PC: " + owner + " Price: " + price + " Sign: " + signLoc );
 
-    if ( sign.getBlock().getState() instanceof Sign signBlock ) {
+    if ( signLoc.getBlock().getState() instanceof Sign signBlock ) {
       SignSide s = signBlock.getSide( Side.FRONT );
 
       GPTradeProperty.instance.Log.info( "Using default front." );
@@ -79,7 +79,7 @@ public class ClaimSell extends TradeTransaction {
 
   @Override
   public void interact( Player player ) {
-    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( sign, false, null );
+    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( signLoc, false, null );
 
     if ( claim == null ) {
       MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgErrorClaimNonExistent );
@@ -159,7 +159,7 @@ public class ClaimSell extends TradeTransaction {
 
   @Override
   public void preview( Player player ) {
-    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( sign, false, null );
+    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( signLoc, false, null );
 
     String cType = claim.parent == null ? "claim" : "subclaim";
     String claimDisplay = claim.parent == null ?
@@ -192,7 +192,7 @@ public class ClaimSell extends TradeTransaction {
 
   @Override
   public void messageData( CommandSender cs ) {
-    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( sign, false, null );
+    Claim claim = GriefPrevention.instance.dataStore.getClaimAt( signLoc, false, null );
 
     if ( claim == null ) {
       tryCancelTrade( null, true );
