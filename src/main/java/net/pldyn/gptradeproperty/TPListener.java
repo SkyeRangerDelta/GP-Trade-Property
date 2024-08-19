@@ -66,7 +66,7 @@ public class TPListener implements Listener {
 
     // Check if the sign is in a claim
     if ( signClaim == null ) {
-      pc.sendMessage( "Sign must be placed in a claim" );
+      MessageHandler.sendMessage( pc, GPTradeProperty.instance.messageHandler.msgErrorSignNotInClaim);
       ev.setCancelled( true );
       ev.getBlock().breakNaturally();
       return;

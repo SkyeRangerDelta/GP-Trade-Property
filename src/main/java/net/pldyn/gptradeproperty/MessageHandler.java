@@ -112,6 +112,9 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.SignNotAdmin" )
   public String msgErrorSignNotAdmin = "<red>Only admins can destroy this sign!";
 
+  @ConfigField( name = "GPTP.Errors.SignNotInClaim" )
+  public String msgErrorSignNotInClaim = "<red>Property signs must be in a claim!";
+
   @ConfigField( name = "GPTP.Errors.ClaimAlreadyOwner", comment = "0: claim type" )
   public String msgErrorClaimAlreadyOwner = "<red>You are already the owner of this {0}";
 
