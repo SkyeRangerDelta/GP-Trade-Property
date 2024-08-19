@@ -16,12 +16,16 @@ import org.bukkit.block.sign.Side;
 import org.bukkit.block.sign.SignSide;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
+import static net.kyori.adventure.text.format.TextColor.color;
+
 public class ClaimSell extends TradeTransaction {
-  public ClaimSell( Claim claim, Player pc, int price, Location signLoc ) {
-    super( claim, pc, price, signLoc );
+  public ClaimSell( Claim claim, Player pc, int price, Location signLoc, SignChangeEvent ev ) {
+    super( claim, pc, price, signLoc, ev );
   }
 
   public ClaimSell( Map<String, Object> map ) {
@@ -34,29 +38,35 @@ public class ClaimSell extends TradeTransaction {
     GPTradeProperty.instance.Log.info( "Updating sign for claim " + claimId );
     GPTradeProperty.instance.Log.info( "PC: " + owner + " Price: " + price + " Sign: " + signLoc );
 
-    if ( signLoc.getBlock().getState() instanceof Sign signBlock ) {
-      SignSide s = signBlock.getSide( Side.FRONT );
+    if ( ev.getBlock().getState() instanceof Sign signBlock ) {
+      @NotNull Side s = ev.getSide();
 
       GPTradeProperty.instance.Log.info( "Using default front." );
 
-      final TextComponent tc1 = Component.text( MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader ) );
-      final TextComponent tc2 = Component.text( GPTradeProperty.instance.configHandler.cfgDisplayConfirmed ).color( NamedTextColor.DARK_GREEN );
-      final TextComponent tc3 = Component.text( owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER" );
+      String header = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
+      String signType = GPTradeProperty.instance.configHandler.cfgDisplayConfirmed;
+      String ownerName = owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER";
 
-      s.line( 0, tc1 );
-      s.line( 1, tc2 );
-      s.line( 2, tc3 );
+      final TextComponent tc1 = Component.text( header );
+      final TextComponent tc2 = Component.text( signType, NamedTextColor.DARK_GREEN );
+      final TextComponent tc3 = Component.text( ownerName );
+
+      GPTradeProperty.instance.Log.info( "Header: " + header + " SignType: " + signType + " Owner: " + ownerName );
+
+      ev.line( 0, tc1 );
+      ev.line( 1, tc2 );
+      ev.line( 2, tc3 );
 
       if ( GPTradeProperty.instance.configHandler.cfgUseCurrencySymbol ) {
         final TextComponent tc4 = Component.text( GPTradeProperty.instance.configHandler.cfgCurrencySymbol + " " + price );
-        s.line( 3, tc4 );
+        ev.line( 3, tc4 );
       }
       else {
         final TextComponent tc4 = Component.text( "" + price );
-        s.line( 3, tc4 );
+        ev.line( 3, tc4 );
       }
 
-      GPTradeProperty.instance.Log.info( s.toString() );
+      GPTradeProperty.instance.Log.info( ev.lines().toString() );
 
       if ( !signBlock.update() ) {
         GPTradeProperty.instance.Log.warning( "Failed to update sign for claim " + claimId );

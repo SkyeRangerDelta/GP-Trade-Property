@@ -6,6 +6,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -18,12 +19,14 @@ public abstract class TradeTransaction implements ConfigurationSerializable, Tra
   public UUID owner = null;
   public int price;
   public Location signLoc = null;
+  public SignChangeEvent ev = null;
 
-  public TradeTransaction( Claim claim, Player pc, int price, Location sign ) {
+  public TradeTransaction( Claim claim, Player pc, int price, Location sign, SignChangeEvent ev ) {
     this.claimId = claim.getID();
     this.owner = pc != null ? pc.getUniqueId() : null;
     this.price = price;
     this.signLoc = sign;
+    this.ev = ev;
   }
 
   public TradeTransaction( Map<String, Object> map ) {

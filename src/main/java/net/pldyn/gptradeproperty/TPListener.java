@@ -44,8 +44,6 @@ public class TPListener implements Listener {
    */
   @EventHandler
   public void onSignChange( SignChangeEvent ev ) {
-
-
     // Check if this is a trade sign
     List<String> lines = new ArrayList<>();
     for ( int i = 0; i < 4; i++ ) {
@@ -148,8 +146,8 @@ public class TPListener implements Listener {
       return;
     }
 
-    ev.setCancelled( true );
-    GPTradeProperty.tradeData.sell( signClaim, signClaim.isAdminClaim() ? null : pc, price, loc );
+//    ev.setCancelled( true );
+    GPTradeProperty.tradeData.sell( signClaim, signClaim.isAdminClaim() ? null : pc, price, loc, ev );
   }
 
   /**

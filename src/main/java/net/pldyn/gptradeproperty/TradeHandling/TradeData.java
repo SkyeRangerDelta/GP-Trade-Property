@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.SignChangeEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -95,8 +96,8 @@ public class TradeData {
     return tr instanceof ClaimSell;
   }
 
-  public void sell ( Claim claim, Player player, int price, Location signLoc ) {
-    ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, signLoc );
+  public void sell ( Claim claim, Player player, int price, Location signLoc, SignChangeEvent ev ) {
+    ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, signLoc, ev );
     claimSell.put( claim.getID().toString(), cs );
 
     GPTradeProperty.instance.Log.info( "ClaimSell: " + cs.claimId + " - " + cs.owner + " - " + cs.price + " - " + cs.signLoc );
