@@ -21,10 +21,10 @@ public class ConfigHandler extends AnnotationConfig {
   public final String configPath = GPTradeProperty.pluginDirPath + "config.yml";
 
   @ConfigField( name = "GPTP.Chat.Prefix", comment = "Always displayed before a chat message." )
-  public String chatPrefix = "<dark_purple>[<blue>TradeProperty<dark_purple>]";
+  public String chatPrefix = "<dark_purple>[<blue>TradeProperty</blue>]</dark_purple>";
 
   @ConfigField( name = "GPTP.Keywords.SignHeader", comment = "Keyword for sign tops." )
-  public String signHeader = "<blue>[TradeProperty]";
+  public String signHeader = "<green>[<aqua>TradeProperty</aqua>]";
 
 
 
