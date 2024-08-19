@@ -2,11 +2,15 @@ package net.pldyn.gptradeproperty;
 
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.pldyn.gptradeproperty.TradeHandling.Trade;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.Side;
+import org.bukkit.block.sign.SignSide;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -170,18 +174,13 @@ public class TPListener implements Listener {
   @EventHandler
   public void onPlayerInteract( PlayerInteractEvent ev ) {
     if ( ev.getAction().equals( Action.RIGHT_CLICK_BLOCK ) && ev.getHand().equals( EquipmentSlot.HAND ) &&
-      ev.getClickedBlock().getState() instanceof Sign ) {
+      ev.getClickedBlock().getState() instanceof Sign s ) {
+      SignSide side = s.getSide( Side.FRONT );
 
-      Sign s = ( Sign ) ev.getClickedBlock().getState();
-      // Check if this is a trade sign
-      List<String> lines = new ArrayList<>();
-      for ( int i = 0; i < 4; i++ ) {
-        lines.add( PlainTextComponentSerializer.plainText().serialize( Objects.requireNonNull( s.line( i ) ) ) );
-      }
-
-      if ( ChatColor.stripColor( lines.getFirst() ).equalsIgnoreCase(
-          ChatColor.stripColor( MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false ) )
-      ) ) {
+      // MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false )
+      TextComponent signText = ( TextComponent ) side.line( 0 );
+      TextComponent headerText = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
+      if ( !signText.equals( headerText ) ) {
         Player pc = ev.getPlayer();
         Claim claim = GriefPrevention.instance.dataStore.getClaimAt( ev.getClickedBlock().getLocation(), false, null );
 

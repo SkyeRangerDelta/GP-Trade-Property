@@ -1,14 +1,12 @@
 package net.pldyn.gptradeproperty;
 
-//import me.EtienneDx.AnnotationConfig.AnnotationConfig;
-//import me.EtienneDx.AnnotationConfig.ConfigField;
-//import me.EtienneDx.AnnotationConfig.ConfigFile;
-
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.pldyn.gptradeproperty.AnnotationConfig.AnnotationConfig;
 import net.pldyn.gptradeproperty.AnnotationConfig.ConfigField;
 import net.pldyn.gptradeproperty.AnnotationConfig.ConfigFile;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
 
@@ -138,23 +136,29 @@ public class MessageHandler extends AnnotationConfig {
     this.pdf = GPTradeProperty.instance.getDescription();
   }
 
-  public static String getMessage( String template, String... args ) {
+  public static TextComponent getMessage( String template, String... args ) {
     return getMessage( template, true, args );
   }
 
-  public static String getMessage( String template, boolean withPrefix, String... args ) {
-    if ( withPrefix ) {
-      template = GPTradeProperty.instance.configHandler.chatPrefix + template;
-    }
+  public static TextComponent getMessage( String template, boolean withPrefix, String... args ) {
+    TextComponent newTemplate = null;
 
-    template = ChatColor.translateAlternateColorCodes( '$', template );
+    if ( withPrefix ) {
+      template = GPTradeProperty.instance.configHandler.chatPrefix + " " + template;
+    }
 
     for ( int i = 0; i < args.length; i++ ) {
       String param = args[i];
       template = template.replaceAll( "\\{" + i + "}", Matcher.quoteReplacement( param ) );
     }
 
-    return template;
+    GPTradeProperty.instance.Log.info( "Message Template: " + template );
+
+    newTemplate = LegacyComponentSerializer.legacy( '$' ).deserialize( template );
+
+    GPTradeProperty.instance.Log.info( "Message: " + newTemplate );
+
+    return newTemplate;
   }
 
   //sends a color-coded message to a player
@@ -164,7 +168,7 @@ public class MessageHandler extends AnnotationConfig {
 
   //sends a color-coded message to a player
   public static void sendMessage( CommandSender player, String msgTemplate, long delayInTicks, String... args ) {
-    String message = getMessage( msgTemplate, args );
+    TextComponent message = getMessage( msgTemplate, args );
     sendMessage( player, message, delayInTicks );
   }
 
@@ -175,10 +179,10 @@ public class MessageHandler extends AnnotationConfig {
 
   //sends a color-coded message to a player
   public static void sendMessage( CommandSender player, String message, Boolean fixColors ) {
-    sendMessage(player, fixColors ? getMessage( message ) : message, 0);
+    sendMessage(player, fixColors ? getMessage( message ) : Component.text( message ), 0);
   }
 
-  public static void sendMessage( CommandSender player, String message, long delayInTicks ) {
+  public static void sendMessage( CommandSender player, TextComponent message, long delayInTicks ) {
     PlayerMessaging task = new PlayerMessaging(player, message);
 
     if ( delayInTicks > 0 ) {

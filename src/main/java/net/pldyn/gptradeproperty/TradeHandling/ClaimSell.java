@@ -43,30 +43,32 @@ public class ClaimSell extends TradeTransaction {
 
       GPTradeProperty.instance.Log.info( "Using default front." );
 
-      String header = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
+      TextComponent header = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
       String signType = GPTradeProperty.instance.configHandler.cfgDisplayConfirmed;
       String ownerName = owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER";
 
-      final TextComponent tc1 = Component.text( header );
+      final TextComponent tc1 = header;
       final TextComponent tc2 = Component.text( signType, NamedTextColor.DARK_GREEN );
       final TextComponent tc3 = Component.text( ownerName );
-
-      GPTradeProperty.instance.Log.info( "Header: " + header + " SignType: " + signType + " Owner: " + ownerName );
 
       ev.line( 0, tc1 );
       ev.line( 1, tc2 );
       ev.line( 2, tc3 );
 
       if ( GPTradeProperty.instance.configHandler.cfgUseCurrencySymbol ) {
-        final TextComponent tc4 = Component.text( GPTradeProperty.instance.configHandler.cfgCurrencySymbol + " " + price );
-        ev.line( 3, tc4 );
+        if ( !GPTradeProperty.instance.configHandler.cfgShowCurrencyAsSuffix ) {
+          final TextComponent tc4 = Component.text( GPTradeProperty.instance.configHandler.cfgCurrencySymbol + price );
+          ev.line( 3, tc4 );
+        }
+        else {
+          final TextComponent tc4 = Component.text( price + GPTradeProperty.instance.configHandler.cfgCurrencySymbol );
+          ev.line( 3, tc4 );
+        }
       }
       else {
         final TextComponent tc4 = Component.text( "" + price );
         ev.line( 3, tc4 );
       }
-
-      GPTradeProperty.instance.Log.info( ev.lines().toString() );
 
       if ( !signBlock.update() ) {
         GPTradeProperty.instance.Log.warning( "Failed to update sign for claim " + claimId );
@@ -175,24 +177,24 @@ public class ClaimSell extends TradeTransaction {
     String claimDisplay = claim.parent == null ?
         GPTradeProperty.instance.messageHandler.keywordClaim :
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
-    String msg = MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellHeader + "\n" );
+    TextComponent msg = (TextComponent) MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellHeader + "\n" );
 
-    msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellGeneral,
+    msg = msg.append( MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellGeneral,
         claimDisplay,
-        "" + price );
+        "" + price ) );
 
     if ( cType.equalsIgnoreCase( "claim" ) ) {
-      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoOwner,
-          claim.getOwnerName()) + "\n";
+      msg = msg.append( MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoOwner,
+          claim.getOwnerName()) );
     }
     else {
-      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoMainOwner,
-          claim.parent.getOwnerName()) + "\n";
+      msg = msg.append( MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoMainOwner,
+          claim.parent.getOwnerName() ) );
 
-      msg += MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgInfoClaimNote ) + "\n";
+      msg = msg.append( MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgInfoClaimNote ) );
     }
 
-    MessageHandler.sendMessage( player, msg );
+    MessageHandler.sendMessage( player, msg.content() );
   }
 
   @Override
