@@ -2,6 +2,7 @@ package net.pldyn.gptradeproperty;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.*;
@@ -41,6 +42,8 @@ public class AccountsConfigHandler {
         Log.warning("Failed to create accounts config!");
       }
     }
+
+    accountsConfig = YamlConfiguration.loadConfiguration(accountsConfigFile);
   }
 
   private static void setAccountDefaults() {
