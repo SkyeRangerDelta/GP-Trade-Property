@@ -21,10 +21,10 @@ public class ConfigHandler extends AnnotationConfig {
   public final String configPath = GPTradeProperty.pluginDirPath + "config.yml";
 
   @ConfigField( name = "GPTP.Chat.Prefix", comment = "Always displayed before a chat message." )
-  public String chatPrefix = "$5[$9TradeProperty$5]";
+  public String chatPrefix = "<dark_purple>[<blue>TradeProperty<dark_purple>]";
 
   @ConfigField( name = "GPTP.Keywords.SignHeader", comment = "Keyword for sign tops." )
-  public String signHeader = "$6[TradeProperty]";
+  public String signHeader = "<blue>[TradeProperty]";
 
 
 
@@ -39,7 +39,7 @@ public class ConfigHandler extends AnnotationConfig {
 
 
   @ConfigField( name = "GPTP.Keywords.Sell", comment = "All possible sell sign headers" )
-  public List<String> cfgSellSigns = Arrays.asList( "[sell]", "[sell claim]", "[sc]", "[sp]", "[sell property]", "[tradeproperty]" );
+  public List<String> cfgSellSigns = Arrays.asList( "[sell]", "[sell claim]", "[sc]", "[sp]", "[sell property]", "[tradeproperty]", "[tp]" );
 
   @ConfigField( name = "GPTP.Keywords.Confirmed.Sell", comment = "The text displayed on a sell sign." )
   public String cfgDisplayConfirmed = "FOR SALE";
@@ -59,7 +59,7 @@ public class ConfigHandler extends AnnotationConfig {
   public boolean cfgUseCurrencySymbol = true;
 
   @ConfigField( name = "GPTP.Rules.AcceptedTradeItems", comment = "The accepted items for trade costs." )
-  public List<String> cfgAcceptedCostItems = Arrays.asList( "minecraft:diamond" );
+  public List<String> cfgAcceptedCostItems = List.of( "minecraft:diamond" );
 
 
 
@@ -79,9 +79,9 @@ public class ConfigHandler extends AnnotationConfig {
 
 
 
-  public ConfigHandler() {
-    this.pdf = GPTradeProperty.instance.getDescription();
-  }
+//  public ConfigHandler() {
+//    this.pdf = GPTradeProperty.instance.getDescription();
+//  }
 
   public String getString(List<String> pathData) {
     return String.join(";", pathData);
