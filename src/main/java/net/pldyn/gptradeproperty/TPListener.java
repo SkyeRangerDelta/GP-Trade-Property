@@ -178,7 +178,7 @@ public class TPListener implements Listener {
       // MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false )
       TextComponent signText = ( TextComponent ) side.line( 0 );
       TextComponent headerText = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
-      if ( !signText.equals( headerText ) ) {
+      if ( !signText.content().equals( headerText ) ) {
         Player pc = ev.getPlayer();
         Claim claim = GriefPrevention.instance.dataStore.getClaimAt( ev.getClickedBlock().getLocation(), false, null );
 
