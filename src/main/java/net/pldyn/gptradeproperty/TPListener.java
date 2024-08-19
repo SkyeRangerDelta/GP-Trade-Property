@@ -175,10 +175,14 @@ public class TPListener implements Listener {
       Objects.requireNonNull( ev.getClickedBlock() ).getState() instanceof Sign s ) {
       SignSide side = s.getSide( Side.FRONT );
 
-      // MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false )
-      TextComponent signText = ( TextComponent ) side.line( 0 );
-      TextComponent headerText = MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false );
-      if ( !signText.content().equals( headerText ) ) {
+      String signText = PlainTextComponentSerializer.plainText().serialize( side.line( 0 ) );
+      String headerText = PlainTextComponentSerializer.plainText().serialize(
+          MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false ) );
+
+      GPTradeProperty.instance.Log.info( "Sign Text: " + signText + " Header Text: " + headerText );
+
+      if ( signText.equalsIgnoreCase( headerText ) ) {
+
         Player pc = ev.getPlayer();
         Claim claim = GriefPrevention.instance.dataStore.getClaimAt( ev.getClickedBlock().getLocation(), false, null );
 
