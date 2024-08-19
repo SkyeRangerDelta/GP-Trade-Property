@@ -95,11 +95,11 @@ public class TradeData {
     return tr instanceof ClaimSell;
   }
 
-  public void sell ( Claim claim, Player player, int price, Location sign ) {
-    ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, sign );
+  public void sell ( Claim claim, Player player, int price, Location signLoc ) {
+    ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, signLoc );
     claimSell.put( claim.getID().toString(), cs );
 
-    GPTradeProperty.instance.Log.info( "ClaimSell: " + cs.claimId + " - " + cs.owner + " - " + cs.price + " - " + cs.sign );
+    GPTradeProperty.instance.Log.info( "ClaimSell: " + cs.claimId + " - " + cs.owner + " - " + cs.price + " - " + cs.signLoc );
 
     cs.update();
     saveData();
