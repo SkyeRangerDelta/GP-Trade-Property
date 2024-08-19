@@ -100,8 +100,6 @@ public class TradeData {
     ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, signLoc, ev );
     claimSell.put( claim.getID().toString(), cs );
 
-    GPTradeProperty.instance.Log.info( "ClaimSell: " + cs.claimId + " - " + cs.owner + " - " + cs.price + " - " + cs.signLoc );
-
     cs.update();
     saveData();
 
@@ -111,7 +109,7 @@ public class TradeData {
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
 
     if ( player != null ) {
-      MessageHandler.sendMessage( ( CommandSender ) player, GPTradeProperty.instance.messageHandler.msgClaimCreatedSell,
+      MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgClaimCreatedSell,
           claimPrefix, claimTypeDisplay, "" + price );
     }
 
