@@ -5,6 +5,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Objects;
+
 /**
  * Utility class for trade-related functions. Handles item movement.
  */
@@ -17,7 +19,7 @@ public class TradeUtilities {
 
     if ( currency != null && amount > 0 ) {
       ItemStack currencyStack = new ItemStack( currency, amount );
-      PlayerInventory buyerInventory = buyer.getPlayer().getInventory();
+      PlayerInventory buyerInventory = Objects.requireNonNull( buyer.getPlayer() ).getInventory();
       if ( buyerInventory.containsAtLeast( currencyStack, amount ) ) {
         buyerInventory.removeItem( currencyStack );
         return true;
@@ -36,7 +38,7 @@ public class TradeUtilities {
 
     if ( currency != null && amount > 0 ) {
       ItemStack currencyStack = new ItemStack( currency, amount );
-      PlayerInventory sellerInventory = seller.getPlayer().getInventory();
+      PlayerInventory sellerInventory = Objects.requireNonNull( seller.getPlayer() ).getInventory();
       if ( sellerInventory.firstEmpty() != -1 ) {
         sellerInventory.addItem( currencyStack );
         return true;

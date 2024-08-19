@@ -2,11 +2,9 @@ package net.pldyn.gptradeproperty;
 
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import net.pldyn.gptradeproperty.TradeHandling.Trade;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
@@ -33,7 +31,7 @@ import java.util.logging.Logger;
  */
 public class TPListener implements Listener {
 
-  private Logger Log = GPTradeProperty.instance.getLogger();
+  private final Logger Log = GPTradeProperty.instance.getLogger();
 
   /**
    * Register events
@@ -119,7 +117,7 @@ public class TPListener implements Listener {
 
     int price;
     try {
-      price = getValueInt( ev, 1, GPTradeProperty.instance.configHandler.cfgPricePerBlock * signClaim.getArea() );
+      price = getValueInt( ev, GPTradeProperty.instance.configHandler.cfgPricePerBlock * signClaim.getArea() );
     }
     catch ( NumberFormatException e ) {
       MessageHandler.sendMessage( pc, GPTradeProperty.instance.messageHandler.msgErrorInvalidNumber, lines.get( 1 ) );
@@ -157,8 +155,8 @@ public class TPListener implements Listener {
   /**
    * getValueDouble - returns a formatted double value from the sign event
    */
-  private int getValueInt( SignChangeEvent ev, int line, int defaultValue ) throws NumberFormatException {
-    String text = PlainTextComponentSerializer.plainText().serialize( Objects.requireNonNull( ev.line( line ) ) );
+  private int getValueInt( SignChangeEvent ev, int defaultValue ) throws NumberFormatException {
+    String text = PlainTextComponentSerializer.plainText().serialize( Objects.requireNonNull( ev.line( 1 ) ) );
     Log.info( "Sign Text: " + text );
 
     if ( text.isEmpty() ) {
@@ -173,8 +171,8 @@ public class TPListener implements Listener {
    */
   @EventHandler
   public void onPlayerInteract( PlayerInteractEvent ev ) {
-    if ( ev.getAction().equals( Action.RIGHT_CLICK_BLOCK ) && ev.getHand().equals( EquipmentSlot.HAND ) &&
-      ev.getClickedBlock().getState() instanceof Sign s ) {
+    if ( ev.getAction().equals( Action.RIGHT_CLICK_BLOCK ) && Objects.equals( ev.getHand(), EquipmentSlot.HAND ) &&
+      Objects.requireNonNull( ev.getClickedBlock() ).getState() instanceof Sign s ) {
       SignSide side = s.getSide( Side.FRONT );
 
       // MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader, false )

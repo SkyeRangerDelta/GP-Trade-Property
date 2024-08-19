@@ -13,7 +13,6 @@ import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
-import org.bukkit.block.sign.SignSide;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
@@ -21,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static net.kyori.adventure.text.format.TextColor.color;
 
 public class ClaimSell extends TradeTransaction {
   public ClaimSell( Claim claim, Player pc, int price, Location signLoc, SignChangeEvent ev ) {
@@ -47,11 +45,10 @@ public class ClaimSell extends TradeTransaction {
       String signType = GPTradeProperty.instance.configHandler.cfgDisplayConfirmed;
       String ownerName = owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER";
 
-      final TextComponent tc1 = header;
       final TextComponent tc2 = Component.text( signType, NamedTextColor.DARK_GREEN );
       final TextComponent tc3 = Component.text( ownerName );
 
-      ev.line( 0, tc1 );
+      ev.line( 0, header );
       ev.line( 1, tc2 );
       ev.line( 2, tc3 );
 
@@ -74,6 +71,8 @@ public class ClaimSell extends TradeTransaction {
         GPTradeProperty.instance.Log.warning( "Failed to update sign for claim " + claimId );
         return false;
       }
+
+      return true;
 
     }
     else {

@@ -1,6 +1,7 @@
 package net.pldyn.gptradeproperty;
 
 import java.time.Duration;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -65,7 +66,7 @@ public class Utilities
           MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoDepositOther, s.getName() );
         }
 
-        if( s != null && s.isOnline() && msgSeller ) // If the seller is online and the message to the seller is true
+        if( s.isOnline() && msgSeller ) // If the seller is online and the message to the seller is true
         {
           MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoDepositSelf, b.getName() );
         }
@@ -167,7 +168,7 @@ public class Utilities
       return false;
     }
 
-    PlayerInventory inv = player.getPlayer().getInventory();
+    PlayerInventory inv = Objects.requireNonNull( player.getPlayer() ).getInventory();
     int costCount = 0;
     for ( ItemStack item : inv.getContents() ) {
       if ( item != null && item.getType() == Material.DIAMOND ) {

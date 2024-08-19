@@ -1,6 +1,5 @@
 package net.pldyn.gptradeproperty;
 
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.command.CommandSender;
 
