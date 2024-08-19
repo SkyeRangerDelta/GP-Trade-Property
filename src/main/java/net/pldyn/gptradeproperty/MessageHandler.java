@@ -155,12 +155,12 @@ public class MessageHandler extends AnnotationConfig {
       template = template.replaceAll( "\\{" + i + "}", Matcher.quoteReplacement( param ) );
     }
 
-    GPTradeProperty.instance.Log.info( "Message Template: " + template );
+//    GPTradeProperty.instance.Log.info( "Message Template: " + template );
 
     MiniMessage mm = MiniMessage.miniMessage();
     newTemplate = ( TextComponent ) mm.deserialize( template );
 
-    GPTradeProperty.instance.Log.info( "Message: " + newTemplate );
+//    GPTradeProperty.instance.Log.info( "Message: " + newTemplate );
 
     return newTemplate;
   }
