@@ -31,8 +31,8 @@ public class AccountsConfigHandler {
 
   private static void createFiles() {
     accountsConfigFile = new File(
-        Bukkit.getPluginManager()
-            .getPlugin("GP-TradeProperty")
+        Objects.requireNonNull( Bukkit.getPluginManager()
+                .getPlugin( "GP-TradeProperty" ) )
             .getDataFolder(), "GPTP-Accounts.yml" );
 
     if (!accountsConfigFile.exists()) {
@@ -47,7 +47,7 @@ public class AccountsConfigHandler {
   }
 
   private static void setAccountDefaults() {
-    accountsConfig.options().header("This file stores the bank accounts of players. Used for trade-related functions.");
+    accountsConfig.options().setHeader( Collections.singletonList( "This file stores the bank accounts of players. Used for trade-related functions." ) );
     accountsConfig.addDefault( "accounts", new HashMap< String, Integer >() );
     saveAccounts();
   }
