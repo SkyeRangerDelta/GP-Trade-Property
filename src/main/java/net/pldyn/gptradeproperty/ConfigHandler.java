@@ -21,10 +21,10 @@ public class ConfigHandler extends AnnotationConfig {
   public final String configPath = GPTradeProperty.pluginDirPath + "config.yml";
 
   @ConfigField( name = "GPTP.Chat.Prefix", comment = "Always displayed before a chat message." )
-  public String chatPrefix = "&5[&9GP-TradeProperty&5] &f";
+  public String chatPrefix = "$5[$9TradeProperty$5]";
 
   @ConfigField( name = "GPTP.Keywords.SignHeader", comment = "Keyword for sign tops." )
-  public String signHeader = "&6[TradeProperty]";
+  public String signHeader = "$6[TradeProperty]";
 
 
 
@@ -50,7 +50,7 @@ public class ConfigHandler extends AnnotationConfig {
 
 
   @ConfigField( name = "GPTP.Rules.DisplayItemSuffix", comment = "Whether signs should show a item suffix." )
-  public boolean cfgShowCurrencySuffix = true;
+  public boolean cfgShowCurrencyAsSuffix = true;
 
   @ConfigField( name = "GPTP.Rules.Suffix", comment = "The suffix to use if the above is true." )
   public String cfgCurrencySymbol = "d";
