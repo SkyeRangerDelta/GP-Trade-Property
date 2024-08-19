@@ -105,7 +105,7 @@ public class TradeData {
 
     String claimPrefix = claim.isAdminClaim() ? GPTradeProperty.instance.messageHandler.keywordAdminClaimPrefix :
         GPTradeProperty.instance.messageHandler.keywordClaimPrefix;
-    String claimTypeDisplay = claim.isAdminClaim() ? GPTradeProperty.instance.messageHandler.keywordClaim :
+    String claimTypeDisplay = claim.parent == null ? GPTradeProperty.instance.messageHandler.keywordClaim :
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
 
     if ( player != null ) {
