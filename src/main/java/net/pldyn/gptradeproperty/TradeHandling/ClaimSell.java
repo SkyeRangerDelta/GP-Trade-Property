@@ -176,7 +176,7 @@ public class ClaimSell extends TradeTransaction {
     String claimDisplay = claim.parent == null ?
         GPTradeProperty.instance.messageHandler.keywordClaim :
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
-    TextComponent msg = (TextComponent) MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellHeader + "\n" );
+    TextComponent msg = MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellHeader + "\n" );
 
     msg = msg.append( MessageHandler.getMessage( GPTradeProperty.instance.messageHandler.msgClaimInfoSellGeneral,
         claimDisplay,
