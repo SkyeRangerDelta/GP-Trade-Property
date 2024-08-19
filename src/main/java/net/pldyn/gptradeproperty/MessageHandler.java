@@ -6,13 +6,17 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.pldyn.gptradeproperty.AnnotationConfig.AnnotationConfig;
 import net.pldyn.gptradeproperty.AnnotationConfig.ConfigField;
 
+import net.pldyn.gptradeproperty.AnnotationConfig.ConfigFile;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 import java.util.regex.Matcher;
 
+@ConfigFile( header = "messages.yml" )
 public class MessageHandler extends AnnotationConfig {
   public PluginDescriptionFile pdf;
+
+  public final String messagePath = GPTradeProperty.pluginDirPath + "messages.yml";
 
   @ConfigField( name = "GPTP.Keywords.TheServer" )
   public String keywordTheServer = "The server";
@@ -42,7 +46,7 @@ public class MessageHandler extends AnnotationConfig {
   public String msgClaimInfoOwner = "<aqua>The current owner is <green>{0}";
 
   @ConfigField( name = "GPTP.Info.Claim.Created.Sell", comment = "0: claim prefix, 1: claim type, 2: formatted price")
-  public String msgClaimCreatedSell = "<blue>You have successfully created {0} {1} sale for <green>{2}";
+  public String msgClaimCreatedSell = "<aqua>You have successfully created {0} {1} sale for <green>{2}";
 
   @ConfigField( name = "GPTP.Info.Claim.Created.SellBroadcast", comment = "0: player name, 1: claim prefix, 2: claim type, 3: formatted price")
   public String msgClaimCreatedSellBroadcast = "<green>{0} <aqua>has created {1} {2} sale for <green>{3}";
@@ -190,5 +194,10 @@ public class MessageHandler extends AnnotationConfig {
     } else {
       task.run();
     }
+  }
+
+  @Override
+  public void loadConfig() {
+    this.loadConfig( this.messagePath );
   }
 }
