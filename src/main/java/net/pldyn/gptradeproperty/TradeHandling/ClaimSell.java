@@ -16,6 +16,7 @@ import org.bukkit.block.sign.Side;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -89,7 +90,7 @@ public class ClaimSell extends TradeTransaction {
   }
 
   @Override
-  public void interact( Player player ) {
+  public void interact( Player player, PlayerInteractEvent ev ) {
     Claim claim = GriefPrevention.instance.dataStore.getClaimAt( signLoc, false, null );
 
     if ( claim == null ) {
@@ -105,6 +106,7 @@ public class ClaimSell extends TradeTransaction {
 
     if ( player.getUniqueId().equals( owner ) ) {
       MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgErrorClaimAlreadyOwner, claimDisplay );
+      ev.setCancelled( true );
       return;
     }
 

@@ -198,7 +198,7 @@ public class TPListener implements Listener {
           tr.preview( pc );
         }
         else {
-          tr.interact( pc );
+          tr.interact( pc, ev );
         }
       }
     }
