@@ -8,6 +8,7 @@ import net.pldyn.gptradeproperty.MessageHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
@@ -20,10 +21,29 @@ import java.util.HashMap;
 
 public class TradeData {
   public final String tradeDataPath = GPTradeProperty.pluginDirPath + "trades.data";
-  DateFormat df = new SimpleDateFormat( "yyyy/MM/dd HH:mm:ss" );
-  Date date = new Date();
 
   public HashMap<String, ClaimSell> claimSell;
+
+  public TradeData() {
+    loadData();
+  }
+
+  public void loadData() {
+    claimSell = new HashMap<>();
+    File f = new File( this.tradeDataPath );
+    if ( f.exists() ) {
+      YamlConfiguration config = YamlConfiguration.loadConfiguration( f );
+
+      ConfigurationSection sellSection = config.getConfigurationSection( "Sell" );
+
+      if ( sellSection != null ) {
+        for ( String key : sellSection.getKeys( false ) ) {
+          ClaimSell cs = ( ClaimSell ) sellSection.get( key );
+          claimSell.put( key, cs );
+        }
+      }
+    }
+  }
 
   public void saveData() {
     YamlConfiguration config = new YamlConfiguration();
