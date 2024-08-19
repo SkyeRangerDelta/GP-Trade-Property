@@ -1,8 +1,13 @@
 package net.pldyn.gptradeproperty;
 
-import me.EtienneDx.AnnotationConfig.AnnotationConfig;
-import me.EtienneDx.AnnotationConfig.ConfigField;
-import me.EtienneDx.AnnotationConfig.ConfigFile;
+//import me.EtienneDx.AnnotationConfig.AnnotationConfig;
+//import me.EtienneDx.AnnotationConfig.ConfigField;
+//import me.EtienneDx.AnnotationConfig.ConfigFile;
+
+import net.pldyn.gptradeproperty.AnnotationConfig.AnnotationConfig;
+import net.pldyn.gptradeproperty.AnnotationConfig.ConfigField;
+import net.pldyn.gptradeproperty.AnnotationConfig.ConfigFile;
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;

@@ -1,7 +1,9 @@
 package net.pldyn.gptradeproperty;
 
-import me.EtienneDx.AnnotationConfig.AnnotationConfig;
-import me.EtienneDx.AnnotationConfig.ConfigField;
+import net.pldyn.gptradeproperty.AnnotationConfig.AnnotationConfig;
+import net.pldyn.gptradeproperty.AnnotationConfig.ConfigField;
+import net.pldyn.gptradeproperty.AnnotationConfig.ConfigFile;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.PluginDescriptionFile;
 
@@ -11,6 +13,7 @@ import java.util.List;
 /**
  * Handles the configuration of the plugin
  */
+@ConfigFile( header = "Consider using a YAML editor to configure this file. \nThese are the settings for the plugin. \nBackup your changes before reloading the server." )
 public class ConfigHandler extends AnnotationConfig {
 
   public PluginDescriptionFile pdf;
@@ -52,7 +55,7 @@ public class ConfigHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Rules.Suffix", comment = "The suffix to use if the above is true." )
   public String cfgCurrencySymbol = "d";
 
-  @ConfigField(name="RealEstate.Rules.UseCurrencySymbol", comment = "Allow the use of currency symbols.")
+  @ConfigField( name = "GPTP.Rules.UseCurrencySymbol", comment = "Allow the use of currency symbols." )
   public boolean cfgUseCurrencySymbol = true;
 
   @ConfigField( name = "GPTP.Rules.AcceptedTradeItems", comment = "The accepted items for trade costs." )
@@ -65,19 +68,14 @@ public class ConfigHandler extends AnnotationConfig {
 
 
 
-  @ConfigField(name="RealEstate.Messaging.MessageOwner", comment = "Whether the owner is messaged when a claim is bought.")
+  @ConfigField( name = "GPTP.Messaging.MessageOwner", comment = "Whether the owner is messaged when a claim is bought." )
   public boolean cfgMessageOwner = true;
 
-  @ConfigField(name="RealEstate.Messaging.MessageBuyer", comment = "Whether the buyer is messaged when a claim is bought.")
+  @ConfigField( name = "GPTP.Messaging.MessageBuyer", comment = "Whether the buyer is messaged when a claim is bought." )
   public boolean cfgMessageBuyer = true;
 
-  @ConfigField(name="RealEstate.Messaging.BroadcastSell", comment = "Whether a message is broadcasted when a claim is listed for sale.")
+  @ConfigField( name = "GPTP.Messaging.BroadcastSell", comment = "Whether a message is broadcasted when a claim is listed for sale." )
   public boolean cfgBroadcastSell = true;
-
-
-
-  @ConfigField(name="RealEstate.Settings.ListPageSize", comment = "How many listings per page should appear in '/tp list'.")
-  public boolean cfgListPageSize = true;
 
 
 
