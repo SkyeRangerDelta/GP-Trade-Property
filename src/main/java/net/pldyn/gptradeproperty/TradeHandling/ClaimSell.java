@@ -2,16 +2,18 @@ package net.pldyn.gptradeproperty.TradeHandling;
 
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.GriefPrevention;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.pldyn.gptradeproperty.GPTradeProperty;
 import net.pldyn.gptradeproperty.MessageHandler;
 import net.pldyn.gptradeproperty.Utilities;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
+import org.bukkit.block.sign.Side;
+import org.bukkit.block.sign.SignSide;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -29,28 +31,37 @@ public class ClaimSell extends TradeTransaction {
   @Override
   public boolean update() {
 
-    if ( sign.getBlock().getState() instanceof Sign ) {
-      Sign s = ( Sign ) sign.getBlock().getState();
+    GPTradeProperty.instance.Log.info( "Updating sign for claim " + claimId );
+    GPTradeProperty.instance.Log.info( "PC: " + owner + " Price: " + price + " Sign: " + sign );
 
-      // Check if this is a trade sign
-      List<String> lines = new ArrayList<>();
-      for ( int i = 0; i < 4; i++ ) {
-        lines.add( PlainTextComponentSerializer.plainText().serialize( Objects.requireNonNull( s.line( i ) ) ) );
-      }
+    if ( sign.getBlock().getState() instanceof Sign signBlock ) {
+      SignSide s = signBlock.getSide( Side.FRONT );
 
-      //TODO: Refactor to account for multiple sides
-      s.setLine( 0, MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader ) );
-      s.setLine( 1, ChatColor.DARK_GREEN + GPTradeProperty.instance.configHandler.cfgDisplayConfirmed );
-      s.setLine( 2, owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER" );
+      GPTradeProperty.instance.Log.info( "Using default front." );
+
+      final TextComponent tc1 = Component.text( MessageHandler.getMessage( GPTradeProperty.instance.configHandler.signHeader ) );
+      final TextComponent tc2 = Component.text( GPTradeProperty.instance.configHandler.cfgDisplayConfirmed ).color( NamedTextColor.DARK_GREEN );
+      final TextComponent tc3 = Component.text( owner != null ? Utilities.getSignString( Objects.requireNonNull( Bukkit.getOfflinePlayer( owner ).getName() ) ) : "SERVER" );
+
+      s.line( 0, tc1 );
+      s.line( 1, tc2 );
+      s.line( 2, tc3 );
 
       if ( GPTradeProperty.instance.configHandler.cfgUseCurrencySymbol ) {
-        s.setLine( 3, GPTradeProperty.instance.configHandler.cfgCurrencySymbol + " " + (int) Math.round( price ) );
+        final TextComponent tc4 = Component.text( GPTradeProperty.instance.configHandler.cfgCurrencySymbol + " " + price );
+        s.line( 3, tc4 );
       }
       else {
-        s.setLine( 3, "" + price );
+        final TextComponent tc4 = Component.text( "" + price );
+        s.line( 3, tc4 );
       }
 
-      s.update( true );
+      GPTradeProperty.instance.Log.info( s.toString() );
+
+      if ( !signBlock.update() ) {
+        GPTradeProperty.instance.Log.warning( "Failed to update sign for claim " + claimId );
+        return false;
+      }
 
     }
     else {

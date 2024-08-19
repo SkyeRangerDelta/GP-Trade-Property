@@ -98,6 +98,9 @@ public class TradeData {
   public void sell ( Claim claim, Player player, int price, Location sign ) {
     ClaimSell cs = new ClaimSell( claim, claim.isAdminClaim() ? null : player, price, sign );
     claimSell.put( claim.getID().toString(), cs );
+
+    GPTradeProperty.instance.Log.info( "ClaimSell: " + cs.claimId + " - " + cs.owner + " - " + cs.price + " - " + cs.sign );
+
     cs.update();
     saveData();
 
