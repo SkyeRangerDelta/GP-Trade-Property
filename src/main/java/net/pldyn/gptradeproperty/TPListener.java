@@ -108,6 +108,15 @@ public class TPListener implements Listener {
         GPTradeProperty.instance.messageHandler.keywordClaim :
         GPTradeProperty.instance.messageHandler.keywordSubclaim;
 
+    if ( !GPTradeProperty.instance.configHandler.cfgEnableSubclaimSell ) {
+      if ( cType.equals( "subclaim" ) ) {
+        MessageHandler.sendMessage( pc, GPTradeProperty.instance.messageHandler.msgErrorSellSubclaimDisabled );
+        ev.setCancelled( true );
+        ev.getBlock().breakNaturally();
+        return;
+      }
+    }
+
     //TODO: Permissions?
 //    if ( !GPTradeProperty.perms.has( pc, 'gptp.' + type + '.sell' ) ) {
 //      MessageHandler.sendMessage( pc, GPTradeProperty.instance.messageHandler.msgErrorNoPermission );

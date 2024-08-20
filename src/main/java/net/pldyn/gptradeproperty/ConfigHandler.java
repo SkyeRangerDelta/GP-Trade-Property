@@ -31,6 +31,9 @@ public class ConfigHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Settings.EnableSell", comment = "Allow the sale of claims?" )
   public boolean cfgEnableSell = true;
 
+  @ConfigField( name = "GPTP.Settings.EnableSubclaimSell", comment = "Allow the sale of subclaims?" )
+  public boolean cfgEnableSubclaimSell = false;
+
 
 
   @ConfigField( name = "GPTP.Settings.PricePerBlock", comment = "The price per block of a claim." )

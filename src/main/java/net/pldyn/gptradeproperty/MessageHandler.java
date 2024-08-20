@@ -104,6 +104,9 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.SellDisabled" )
   public String msgErrorSellDisabled = "<red>Selling claims is disabled on this server!";
 
+  @ConfigField( name = "GPTP.Errors.SubclaimSalesDisables" )
+  public String msgErrorSellSubclaimDisabled = "<red>Selling subclaims is disabled on this server!";
+
   @ConfigField( name = "GPTP.Errors.InvalidNumber", comment = "Message for wrong price data. 0: the price" )
   public String msgErrorInvalidNumber = "<red>{0} is not a valid number!";
 
