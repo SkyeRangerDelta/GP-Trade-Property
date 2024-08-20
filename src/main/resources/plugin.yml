@@ -27,5 +27,7 @@ commands:
         gptp.command.cancelTrade: true
     gptp.command.withdraw:
       description: 'Allows access to the withdraw command.'
+      default: not op
     gptp.command.cancelTrade:
       description: 'Allows access to the cancelSale command.'
+      default: not op

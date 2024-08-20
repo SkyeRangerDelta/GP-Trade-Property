@@ -140,10 +140,10 @@ public class ClaimSell extends TradeTransaction {
       Location playerLoc = player.getLocation();
 
       if ( claim.parent != null || claim.ownerID.equals( player.getUniqueId() ) ) {
-        String location = "[" + player.getLocation().getWorld() + ", " +
+        String saleLocation = "(" + player.getLocation().getWorld() + ", " +
             "X: " + playerLoc.getBlockX() + ", " +
             "Y: " + playerLoc.getBlockY() + ", " +
-            "Z: " + playerLoc.getBlockZ() + "]";
+            "Z: " + playerLoc.getBlockZ() + ")";
 
         MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgClaimBuyerSold,
             claimDisplay,
@@ -158,8 +158,8 @@ public class ClaimSell extends TradeTransaction {
             MessageHandler.sendMessage( ( CommandSender ) oldOwner, GPTradeProperty.instance.messageHandler.msgClaimOwnerSold,
                 buyerName,
                 claimDisplay,
-                price + "",
-                location );
+                price + " " + GPTradeProperty.instance.configHandler.cfgAcceptedCostItemType + "(s)",
+                saleLocation );
           }
         }
       }
