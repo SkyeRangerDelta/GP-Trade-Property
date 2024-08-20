@@ -58,7 +58,7 @@ public class Utilities
 
     if( s != null ) // If the seller is not null
     {
-      boolean deposit = depositItems( s, amount, giver ); // Deposit the amount to the seller
+      boolean deposit = depositItems( s, amount ); // Deposit the amount to the seller
       if( !deposit ) // If the transaction was not successful
       {
         if( b.isOnline() && msgBuyer ) // If the buyer is online and the message to the buyer is true
