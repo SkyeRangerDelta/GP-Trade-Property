@@ -58,8 +58,8 @@ public class ConfigHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Rules.UseCurrencySymbol", comment = "Allow the use of currency symbols." )
   public boolean cfgUseCurrencySymbol = true;
 
-  @ConfigField( name = "GPTP.Rules.AcceptedTradeItems", comment = "The accepted items for trade costs." )
-  public List<String> cfgAcceptedCostItems = List.of( "minecraft:diamond" );
+  @ConfigField( name = "GPTP.Rules.AcceptedTradeItem", comment = "The accepted item for trade costs." )
+  public String cfgAcceptedCostItemType = "diamond";
 
 
 

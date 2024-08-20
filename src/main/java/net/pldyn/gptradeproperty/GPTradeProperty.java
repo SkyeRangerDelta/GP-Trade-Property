@@ -2,6 +2,7 @@ package net.pldyn.gptradeproperty;
 
 import net.pldyn.gptradeproperty.TradeHandling.ClaimSell;
 import net.pldyn.gptradeproperty.TradeHandling.TradeData;
+import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -55,6 +56,13 @@ public final class GPTradeProperty extends JavaPlugin {
     configHandler.loadConfig();
     configHandler.saveConfig();
     Log.info( "Config loaded." );
+
+    Material currencyCheck = Material.getMaterial( configHandler.cfgAcceptedCostItemType.toUpperCase() );
+    if ( currencyCheck == null ) {
+      Log.warning( "Invalid currency item in config. Disabling plugin." );
+      getServer().getPluginManager().disablePlugin( this );
+      return;
+    }
 
     // Messages
     messageHandler = new MessageHandler();
