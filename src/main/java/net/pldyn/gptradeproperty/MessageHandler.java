@@ -86,6 +86,9 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Errors.NoDepositOther", comment = "0: Other player" )
   public String msgErrorNoDepositOther = "<red>Could not deposit the money to {0}, refunding you!";
 
+  @ConfigField( name = "GPTP.Errors.RefundFailSelf" )
+  public String msgErrorRefundFailSelf = "<red>Could not refund the money to you, adding to your account!";
+
   @ConfigField( name = "GPTP.Errors.Sign.OngoingTransaction" )
   public String msgErrorSignOngoingTrade = "<red>This claim already has an ongoing transaction!";
 

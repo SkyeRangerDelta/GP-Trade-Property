@@ -71,6 +71,18 @@ public class Utilities
           MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorNoDepositSelf, b.getName() );
         }
 
+        Material currencyItem = Material.getMaterial( GPTradeProperty.instance.configHandler.cfgAcceptedCostItemType.toUpperCase() );
+        assert currencyItem != null;
+
+        try {
+          ItemStack currencyStack = new ItemStack( currencyItem, amount );
+          b.getPlayer().getInventory().addItem( currencyStack );
+        }
+        catch ( Exception e ) {
+          MessageHandler.sendMessage( b.getPlayer(), GPTradeProperty.instance.messageHandler.msgErrorRefundFailSelf );
+          AccountsConfigHandler.addAccount( s.getUniqueId(), amount ); // Add the amount to the seller's account for access later
+        }
+
         return false;
       }
     }
