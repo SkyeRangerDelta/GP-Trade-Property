@@ -69,12 +69,19 @@ public class TradeData {
     return null;
   }
 
-  public void cancelTransaction( Claim claim ) {
-    if ( anyTransaction( claim ) ) {
-      Trade tr = getTransaction( claim );
-      cancelTrade( tr );
+  public boolean cancelTrade( Claim claim ) {
+    try {
+      if ( anyTransaction( claim ) ) {
+        Trade tr = getTransaction( claim );
+        cancelTrade( tr );
+      }
+      saveData();
     }
-    saveData();
+    catch ( Exception e ) {
+      return false;
+    }
+
+    return true;
   }
 
   public void cancelTrade( Trade tr ) {

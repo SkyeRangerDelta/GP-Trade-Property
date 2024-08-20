@@ -63,6 +63,9 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Info.Claim.Info.SubclaimNote", comment = "0: owner name" )
   public String msgInfoClaimNote = "<aqua>You will only gain access to this subclaim.";
 
+  @ConfigField( name = "GPTP.Info.TradeCancelled" )
+  public String msgInfoTradeCancelled = "<yellow>The trade has been cancelled.";
+
   @ConfigField( name = "GPTP.Info.JoinAccountHoldings", comment = "0: account value, 1: currency item" )
   public String msgJoinAccountHoldings = "<aqua>Your offline account holds <green>{0} {1}(s)</green>; use /tp withdraw to claim it.";
 
@@ -133,6 +136,9 @@ public class MessageHandler extends AnnotationConfig {
 
   @ConfigField( name = "GPTP.Errors.ClaimNotExists" )
   public String msgErrorClaimNonExistent = "<red>This claim doesn't exist!";
+
+  @ConfigField( name = "GPTP.Errors.TradeNotExists" )
+  public String msgErrorTradeNonExistent = "<red>This claim doesn't exist!";
 
   @ConfigField( name = "GPTP.Errors.NoClaimBlocks", comment = "0: claim area, 1: claim blocks remaining, 2: missing blocks" )
   public String msgErrorNoClaimBlocks = "<red>You need <green>{2}<red> more claim blocks to buy this area! (Requires <green>{0}<red> blocks and you have <green>{1}<red>)";

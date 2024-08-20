@@ -1,7 +1,10 @@
 package net.pldyn.gptradeproperty.Commands;
 
+import me.ryanhamshire.GriefPrevention.Claim;
+import me.ryanhamshire.GriefPrevention.GriefPrevention;
 import net.pldyn.gptradeproperty.AccountsConfigHandler;
 import net.pldyn.gptradeproperty.GPTradeProperty;
+import net.pldyn.gptradeproperty.MessageHandler;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -69,10 +72,23 @@ public class TPCommand implements CommandExecutor, TabExecutor {
       return true;
     }
 
-//    if ( args[ 0 ].equals( "cancelSale" ) ) {
-//      // Get the claim the player is standing in and attempt to cancel the trade on it
-//      GPTradeProperty.tradeData.cancelTrade( ( Player ) sender );
-//    }
+    if ( args[ 0 ].equals( "cancelSale" ) ) {
+      if ( !(sender instanceof Player player) ) {
+        sender.sendMessage( "You must be a player to use this command." );
+        return true;
+      }
+
+      // Get the claim the player is standing in and attempt to cancel the trade on it
+      Claim claim = GriefPrevention.instance.dataStore.getClaimAt( player.getLocation(), false, null );
+      if ( GPTradeProperty.tradeData.cancelTrade( claim ) ) {
+        MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgInfoTradeCancelled );
+        return true;
+      }
+      else {
+        MessageHandler.sendMessage( player, GPTradeProperty.instance.messageHandler.msgErrorTradeNonExistent );
+        return true;
+      }
+    }
 
     return false;
   }
