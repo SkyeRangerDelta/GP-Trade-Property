@@ -69,10 +69,10 @@ public class TPCommand implements CommandExecutor, TabExecutor {
       return true;
     }
 
-    if ( args[ 0 ].equals( "cancelSale" ) ) {
-      // Get the claim the player is standing in and attempt to cancel the trade on it
-      GPTradeProperty.tradeData.cancelTrade( ( Player ) sender );
-    }
+//    if ( args[ 0 ].equals( "cancelSale" ) ) {
+//      // Get the claim the player is standing in and attempt to cancel the trade on it
+//      GPTradeProperty.tradeData.cancelTrade( ( Player ) sender );
+//    }
 
     return false;
   }
