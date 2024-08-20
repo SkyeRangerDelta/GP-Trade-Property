@@ -1,5 +1,6 @@
 package net.pldyn.gptradeproperty;
 
+import net.pldyn.gptradeproperty.Commands.TPCommand;
 import net.pldyn.gptradeproperty.TradeHandling.ClaimSell;
 import net.pldyn.gptradeproperty.TradeHandling.TradeData;
 import org.bukkit.Material;
@@ -7,6 +8,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 /**
@@ -78,6 +80,11 @@ public final class GPTradeProperty extends JavaPlugin {
 
     // Accounts
     AccountsConfigHandler.initAccountsConfig();
+
+    // Commands
+    Objects.requireNonNull(
+        getCommand( "tradeproperty" ) )
+        .setExecutor( new TPCommand() );
 
     // Register events
     new TPListener().registerEvents();

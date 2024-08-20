@@ -9,3 +9,20 @@ website: 'https://pldyn.net/'
 depend:
   - GriefPrevention
 has-open-classloader: true
+commands:
+  tradeproperty:
+    description: 'Trade a GriefPrevention claim with another player.'
+    usage: '/tradeproperty <command>'
+    permission: 'gptp.command.*'
+    aliases: [tp]
+  permissions:
+    gptp.*:
+      description: 'Allows access to all GP-TradeProperty permissions.'
+      children:
+          gptp.command.*: true
+    gptp.command.*:
+      description: 'Allows access to all GP-TradeProperty commands.'
+      children:
+        gptp.command.withdraw: true
+    gptp.command.withdraw:
+      description: 'Allows access to the withdraw command.'
