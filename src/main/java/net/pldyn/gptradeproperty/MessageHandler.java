@@ -63,6 +63,9 @@ public class MessageHandler extends AnnotationConfig {
   @ConfigField( name = "GPTP.Info.Claim.Info.SubclaimNote", comment = "0: owner name" )
   public String msgInfoClaimNote = "<aqua>You will only gain access to this subclaim.";
 
+  @ConfigField( name = "GPTP.Info.JoinAccountHoldings", comment = "0: account value, 1: currency item" )
+  public String msgJoinAccountHoldings = "<aqua>Your offline account holds <green>{0} {1}(s)</green>; use /tp withdraw to claim it.";
+
 
 
   @ConfigField( name = "GPTP.Errors.Trade.NoMoneySelf" )

@@ -16,6 +16,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.PluginManager;
 
@@ -232,6 +233,19 @@ public class TPListener implements Listener {
           }
         }
       }
+    }
+  }
+
+  @EventHandler
+  public void onPlayerJoin( PlayerJoinEvent ev ) {
+    // Check if the player has an account and inform them of it
+    int accValue = AccountsConfigHandler.getAccount( ev.getPlayer().getUniqueId() );
+    if ( accValue > 0 ) {
+      MessageHandler.sendMessage(
+        ev.getPlayer(),
+        GPTradeProperty.instance.messageHandler.msgJoinAccountHoldings,
+        accValue + "",
+        GPTradeProperty.instance.configHandler.cfgAcceptedCostItemType );
     }
   }
 }
