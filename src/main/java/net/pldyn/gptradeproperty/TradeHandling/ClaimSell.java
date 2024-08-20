@@ -153,8 +153,10 @@ public class ClaimSell extends TradeTransaction {
 
         if ( GPTradeProperty.instance.configHandler.cfgMessageOwner && owner != null ) {
           OfflinePlayer oldOwner = Bukkit.getOfflinePlayer( owner );
+          String buyerName = player.getName();
           if ( oldOwner.isOnline() ) {
             MessageHandler.sendMessage( ( CommandSender ) oldOwner, GPTradeProperty.instance.messageHandler.msgClaimOwnerSold,
+                buyerName,
                 claimDisplay,
                 price + "",
                 location );
