@@ -83,8 +83,8 @@ public final class GPTradeProperty extends JavaPlugin {
 
     // Commands
     Objects.requireNonNull(
-        getCommand( "tradeproperty" ) )
-        .setExecutor( new TPCommand() );
+      getCommand( "tradeproperty" ) )
+      .setExecutor( new TPCommand() );
 
     // Register events
     new TPListener().registerEvents();
