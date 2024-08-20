@@ -72,9 +72,14 @@ public class TPCommand implements CommandExecutor, TabExecutor {
       return true;
     }
 
-    if ( args[ 0 ].equals( "cancelSale" ) ) {
+    if ( args[ 0 ].equals( "cancelTrade" ) ) {
       if ( !(sender instanceof Player player) ) {
         sender.sendMessage( "You must be a player to use this command." );
+        return true;
+      }
+
+      if ( !sender.hasPermission( "gptradeproperty.cancelTrade" ) ) {
+        sender.sendMessage( "You do not have permission to use this command." );
         return true;
       }
 
@@ -98,6 +103,7 @@ public class TPCommand implements CommandExecutor, TabExecutor {
     List<String> completions = new ArrayList<>();
 
     completions.add( "withdraw" );
+    completions.add( "cancelTrade" );
 
     return completions;
   }

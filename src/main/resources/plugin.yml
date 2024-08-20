@@ -24,8 +24,8 @@ commands:
       description: 'Allows access to the tradeproperty command.'
       children:
         gptp.command.withdraw: true
-        gptp.command.cancelSale: true
+        gptp.command.cancelTrade: true
     gptp.command.withdraw:
       description: 'Allows access to the withdraw command.'
-    gptp.command.cancelSale:
+    gptp.command.cancelTrade:
       description: 'Allows access to the cancelSale command.'
