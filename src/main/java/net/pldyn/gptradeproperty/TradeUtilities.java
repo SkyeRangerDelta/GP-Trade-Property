@@ -34,7 +34,7 @@ public class TradeUtilities {
    * Deposits items to the seller. If the seller does not have the inventory space,
    * we update their "bank account" record in the accounts configuration file for them to access later.
    */
-  public static boolean depositItems( OfflinePlayer seller, int amount, UUID giver ) {
+  public static boolean depositItems( OfflinePlayer seller, int amount) {
     Material currency = Material.getMaterial( GPTradeProperty.instance.configHandler.cfgAcceptedCostItemType.toUpperCase() );
 
     try {
@@ -48,7 +48,7 @@ public class TradeUtilities {
       }
     }
     catch ( Exception e ) {
-      AccountsConfigHandler.addAccount( giver, amount ); // Add the amount to the buyer's account for access later
+      AccountsConfigHandler.addAccount( seller.getUniqueId(), amount ); // Add the amount to the buyer's account for access later
       return true;
     }
 
